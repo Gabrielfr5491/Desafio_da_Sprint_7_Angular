@@ -21,7 +21,7 @@
 }
 
 .brand-side {
-  background-color: #f8fafc;
+  background-color: #ffffff;
   border-right: 1px solid var(--ford-border-color);
   padding: 3rem;
   display: flex;
@@ -58,17 +58,41 @@
 }
 
 .form-side {
-  background: #ffffff;
+  background: var(--ford-blue);
   padding: 3rem;
-  color: var(--ford-text-dark);
+  color: whitesmoke;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.login-form-box {
-  width: 100%;
-  max-width: 340px;
+.login-form-box .form-control {
+  color: #212529 !important;      
+  background-color: #ffffff;       
+  border: 1px solid #ced4da;      
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.login-form-box .form-control::placeholder {
+  color: #6c757d;                
+  opacity: 1;
+}
+
+
+.login-form-box .form-control:focus {
+  color: #212529 !important;
+  background-color: #ffffff;
+  border-color: #003366;          
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
+}
+
+
+.login-form-box .input-group-text {
+  background-color: #f8f9fa;      
+  color: #003366;                 
+  border: 1px solid #ced4da;
 }
 
 .ford-logo-login {
@@ -79,7 +103,7 @@
 .welcome-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--ford-blue);
+  color: whitesmoke;
   margin-bottom: 0.25rem;
 }
 
@@ -140,6 +164,112 @@
   cursor: pointer;
   color: var(--ford-text-muted) !important;
 }
+
+
+
+
+
+
+.login-form-box .form-control {
+  color: #212529 !important;
+  background: #fafafa !important;
+  border: 1px solid #d4d4d4 !important;
+  font-weight: 500;
+  transition: 0.3s ease-in-out;
+}
+
+.login-form-box .form-control::placeholder {
+  color: #999999 !important;
+  opacity: 1;
+}
+
+
+.login-form-box .form-control:required {
+  border-right: 4px solid #003478 !important; 
+}
+
+
+.login-form-box .form-control:required:valid {
+  border-color: #2ecc71 !important;
+  background: #f0fff4 !important;
+}
+
+
+.login-form-box .form-control:focus {
+  color: #212529 !important;
+  border-color: #003478 !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 10px rgba(0, 52, 120, 0.15) !important;
+  outline: none;
+}
+
+
+.login-form-box .input-group-text {
+  background-color: #f8f9fa !important;
+  color: #003478 !important;
+  border: 1px solid #d4d4d4 !important;
+  transition: 0.3s;
+}
+
+
+
+
+
+.login-form-box .btn-ford {
+  width: 100%;
+  border: none !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold !important;
+  transition: 0.4s ease-in-out;
+  background-color: rgba(255, 255, 255, 0.2) !important; 
+  color: rgba(255, 255, 255, 0.4) !important;
+  cursor: not-allowed !important;
+}
+
+
+.login-form-box form:not(.ng-invalid) .btn-ford:not(:disabled) {
+  background-color: #ffffff !important; 
+  color: #003478 !important;
+  cursor: pointer !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+.login-form-box form:not(.ng-invalid) .btn-ford:not(:disabled):hover {
+  background: #e6e6e6 !important;
+  transform: translateY(-2px);
+}
+
+
+.login-form-box .btn-ford:disabled {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+
+
+
+.login-form-box .form-check-label {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+.login-form-box .form-check-input {
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  background-color: transparent !important;
+  cursor: pointer;
+}
+
+.login-form-box .form-check-input:checked {
+  background-color: #007cc3 !important;
+  border-color: #007cc3 !important;
+}
+
+
 
 @media (max-width: 767.98px) {
   .login-container {
