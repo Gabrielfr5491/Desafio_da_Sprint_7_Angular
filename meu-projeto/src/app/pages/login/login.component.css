@@ -1,0 +1,152 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+.login-wrapper {
+  background-color: var(--ford-blue);
+  background-image: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.login-container {
+  width: 900px;
+  height: 550px;
+  overflow: hidden;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.brand-side {
+  background-color: #f8fafc;
+  border-right: 1px solid var(--ford-border-color);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-content {
+  width: 100%;
+}
+
+.vehicle-hero {
+  max-height: 250px;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.12));
+  transition: transform 0.3s ease;
+}
+
+.vehicle-hero:hover {
+  transform: scale(1.03);
+}
+
+.brand-text h3 {
+  color: var(--ford-blue);
+  font-weight: 700;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.brand-text p {
+  color: var(--ford-text-muted);
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.form-side {
+  background: #ffffff;
+  padding: 3rem;
+  color: var(--ford-text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form-box {
+  width: 100%;
+  max-width: 340px;
+}
+
+.ford-logo-login {
+  max-width: 100px;
+  margin-bottom: 1rem;
+}
+
+.welcome-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ford-blue);
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--ford-text-muted) !important;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--ford-text-dark);
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.input-group-text {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.form-control {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: var(--ford-text-dark);
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control::placeholder {
+  color: #94a3b8;
+}
+
+.form-control:focus {
+  background: #ffffff;
+  border-color: var(--ford-blue);
+  color: var(--ford-text-dark);
+  box-shadow: 0 0 0 3px rgba(0, 44, 108, 0.15);
+}
+
+.form-check-input {
+  cursor: pointer;
+  border-color: #cbd5e1;
+}
+
+.form-check-input:checked {
+  background-color: var(--ford-blue);
+  border-color: var(--ford-blue);
+}
+
+.form-check-label {
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--ford-text-muted) !important;
+}
+
+@media (max-width: 767.98px) {
+  .login-container {
+    height: auto;
+    border-radius: 12px;
+  }
+  .form-side {
+    padding: 2.5rem 1.5rem;
+  }
+}

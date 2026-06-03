@@ -1,0 +1,87 @@
+<div class="app-layout">
+  
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" [class.active]="isSidebarActive">
+    <div class="sidebar-logo">
+      <img src="/img/ford.png" alt="Ford Logo">
+    </div>
+    
+    <ul class="sidebar-menu">
+      <li>
+        <a routerLink="/home" routerLinkActive="active" class="sidebar-link">
+          <i class="bi bi-house-door-fill"></i>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="active" class="sidebar-link">
+          <i class="bi bi-speedometer2"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="user-profile mb-3 d-flex align-items-center gap-2">
+        <div class="avatar">
+          <i class="bi bi-person-circle"></i>
+        </div>
+        <div class="user-details overflow-hidden">
+          <div class="user-name text-truncate">{{ currentUser()?.nome || 'Admin' }}</div>
+          <div class="user-email text-truncate text-muted small">{{ currentUser()?.email || 'admin@email.com' }}</div>
+        </div>
+      </div>
+      
+      <!-- Theme Switcher Button -->
+      <button (click)="themeService.toggleTheme()" class="theme-switch-btn w-100 mb-2">
+        <i class="bi" [class.bi-sun-fill]="themeService.isDarkMode()" [class.bi-moon-fill]="!themeService.isDarkMode()"></i>
+        <span>{{ themeService.isDarkMode() ? 'Modo Diurno' : 'Modo Noturno' }}</span>
+      </button>
+
+      <button (click)="onLogout()" class="btn btn-outline-danger w-100 logout-btn">
+        <i class="bi bi-box-arrow-right me-2"></i>
+        Sair
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Top Navbar -->
+  <header class="mobile-navbar">
+    <img src="/img/ford.png" alt="Ford Logo">
+    <div class="d-flex align-items-center gap-2">
+      <!-- Theme switch for mobile -->
+      <button (click)="themeService.toggleTheme()" class="btn btn-sm text-white" style="font-size: 1.25rem; padding: 0.25rem;">
+        <i class="bi" [class.bi-sun-fill]="themeService.isDarkMode()" [class.bi-moon-fill]="!themeService.isDarkMode()"></i>
+      </button>
+      <button class="mobile-menu-btn" (click)="toggleSidebar()">
+        <i class="bi" [class.bi-list]="!isSidebarActive" [class.bi-x]="isSidebarActive"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content home-bg">
+    <div class="container-fluid h-100 d-flex flex-column justify-content-center align-items-center flex-grow-1">
+      
+      <!-- Welcome Panel -->
+      <div class="welcome-card-box text-center glass-card animate-fade-in p-5">
+        <div class="logo-wrapper mb-4">
+          <img src="/img/ford.png" alt="Ford Logo" class="welcome-logo">
+        </div>
+        <h4 class="system-title">Sistema de dados FORD</h4>
+        <h1 class="welcome-text my-3">Seja bem-vindo(a)!</h1>
+        <p class="description-text text-muted mb-4">
+          Gerencie e analise a telemetria, atualizações de softwares e dados de vendas da frota global Ford Connect.
+        </p>
+        <div class="d-flex justify-content-center gap-3">
+          <a routerLink="/dashboard" class="btn btn-ford px-4 py-2">
+            <i class="bi bi-grid-fill me-2"></i>
+            Acessar Dashboard
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </main>
+  
+</div>

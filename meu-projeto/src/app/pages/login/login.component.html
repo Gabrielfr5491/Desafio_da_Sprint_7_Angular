@@ -1,0 +1,98 @@
+<div class="login-wrapper">
+  <div class="login-container">
+    <div class="row g-0 h-100">
+      
+      <!-- Left side: Ford Brand Image Showcase -->
+      <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center brand-side">
+        <div class="brand-content text-center">
+          <img src="/img/ranger.png" alt="Ford Ranger" class="img-fluid vehicle-hero">
+          <div class="brand-text">
+            <h3>Ford Ranger</h3>
+            <p>Conectividade e Telemetria Avançada</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right side: Clean Corporate Login Form -->
+      <div class="col-md-6 d-flex align-items-center justify-content-center form-side">
+        <div class="login-form-box">
+          <div class="text-center mb-4">
+            <img src="/img/ford.png" alt="Ford Logo" class="ford-logo-login">
+            <h2 class="welcome-title">Boas-vindas</h2>
+            <p class="text-muted subtitle">Painel de Monitoramento Ford Connect</p>
+          </div>
+
+          <!-- API Error Alert -->
+          <div *ngIf="errorMessage()" class="alert alert-danger border border-danger-subtle py-2 px-3 mb-3 rounded-3 animate-fade-in" role="alert" style="font-size: 0.85rem;">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            {{ errorMessage() }}
+          </div>
+
+          <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <!-- Username/Email Field -->
+            <div class="mb-3">
+              <label class="form-label" for="username">E-mail ou Usuário</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input 
+                  type="text" 
+                  id="username" 
+                  name="nome" 
+                  class="form-control" 
+                  placeholder="Insira seu e-mail" 
+                  [(ngModel)]="loginData.nome" 
+                  required
+                  #usernameInput="ngModel">
+              </div>
+              <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="text-danger small mt-1" style="font-size: 0.75rem;">
+                O e-mail/usuário é obrigatório.
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3">
+              <label class="form-label" for="password">Senha</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="senha" 
+                  class="form-control" 
+                  placeholder="Insira sua senha" 
+                  [(ngModel)]="loginData.senha" 
+                  required
+                  #passwordInput="ngModel">
+              </div>
+              <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger small mt-1" style="font-size: 0.75rem;">
+                A senha é obrigatória.
+              </div>
+            </div>
+
+            <!-- Keep Logged In Toggle -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="rememberMe">
+                <label class="form-check-label text-muted" for="rememberMe">Logar automaticamente</label>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              class="btn btn-ford w-100 py-3" 
+              [disabled]="loginForm.invalid || isLoading()">
+              <span *ngIf="isLoading()" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {{ isLoading() ? 'Entrando...' : 'Entrar' }}
+            </button>
+          </form>
+          
+          <div class="text-center mt-3 text-muted" style="font-size: 0.75rem;">
+            <span>Acesso padrão: <strong>admin</strong> / <strong>123456</strong></span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

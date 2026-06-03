@@ -1,0 +1,82 @@
+.home-bg {
+  background: linear-gradient(135deg, rgba(var(--bg-overlay-start), 0.92) 0%, rgba(var(--bg-overlay-end), 0.85) 100%), 
+              url('/img/ranger.png') no-repeat center center;
+  background-size: cover;
+  flex-grow: 1;
+  transition: background-color 0.25s ease;
+}
+
+.welcome-card-box {
+  max-width: 580px;
+  width: 100%;
+  border-radius: 12px;
+  color: var(--text-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.welcome-logo {
+  max-width: 110px;
+}
+
+.system-title {
+  color: var(--ford-blue-light);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.welcome-text {
+  font-weight: 700;
+  font-size: 2.25rem;
+  letter-spacing: -0.5px;
+  color: var(--text-color);
+}
+
+.description-text {
+  color: var(--text-muted) !important;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* User profile details in sidebar */
+.user-profile {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar {
+  font-size: 1.6rem;
+  color: #a5f3fc;
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.user-email {
+  font-size: 0.75rem;
+  color: #cbd5e1 !important;
+}
+
+.logout-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+}
+
+@media (max-width: 991.98px) {
+  .welcome-card-box {
+    padding: 3rem 1.5rem !important;
+  }
+  .welcome-text {
+    font-size: 1.75rem;
+  }
+}

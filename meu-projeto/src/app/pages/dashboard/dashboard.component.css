@@ -1,0 +1,211 @@
+.top-logo {
+  max-width: 90px;
+}
+
+/* Custom Select */
+.select-ford-style {
+  background-color: var(--select-bg);
+  border: 1px solid var(--select-border);
+  color: var(--text-color);
+  padding: 0.65rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background-image: var(--select-arrow);
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+.select-ford-style:focus {
+  background-color: var(--select-bg);
+  border-color: var(--ford-blue-light);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+  outline: none;
+}
+
+.select-ford-style option {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+/* KPI Cards */
+.kpi-card {
+  transition: all 0.25s ease;
+}
+
+.kpi-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.icon-sales   { background-color: rgba(16, 185, 129, 0.1); color: #10b981; }
+.icon-connected { background-color: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+.icon-software { background-color: rgba(168, 85, 247, 0.1); color: #a855f7; }
+
+.kpi-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-color);
+  letter-spacing: -0.5px;
+  margin-top: 0.5rem;
+  transition: color 0.25s ease;
+}
+
+.kpi-unit {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Pulse Indicator */
+.pulse-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: pulseGreen 2s infinite;
+  align-self: center;
+}
+
+@keyframes pulseGreen {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Vehicle Showcase */
+.vehicle-showcase-box {
+  background: var(--showcase-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: background 0.25s ease;
+}
+
+.vehicle-showcase-title {
+  font-size: 1.85rem;
+  color: var(--text-color);
+  transition: color 0.25s ease;
+}
+
+.vehicle-showcase-img {
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.12));
+  transition: transform 0.3s ease;
+}
+
+.vehicle-showcase-img:hover {
+  transform: scale(1.02);
+}
+
+.radial-glow {
+  display: none;
+}
+
+/* Override: show glow in dark mode */
+body.theme-dark .radial-glow {
+  display: block;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Search Input */
+.search-group {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--search-border);
+  transition: border-color 0.25s ease;
+}
+
+.search-icon-addon {
+  background: var(--search-addon-bg);
+  border: none;
+  color: var(--text-muted);
+  padding-left: 0.9rem;
+}
+
+.input-ford-search {
+  background: var(--search-bg);
+  border: none;
+  color: var(--text-color);
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  min-width: 260px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.input-ford-search::placeholder {
+  color: var(--text-muted);
+}
+
+.input-ford-search:focus {
+  background: var(--search-bg);
+  color: var(--text-color);
+  box-shadow: none;
+  outline: none;
+}
+
+/* Quick Examples */
+.vin-quick-helper {
+  background-color: var(--table-th-bg);
+  border: 1px dashed var(--border-color);
+  transition: background-color 0.25s ease;
+}
+
+.vin-quick-helper button {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  transition: all 0.2s ease;
+  background: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+
+.vin-quick-helper button:hover {
+  background-color: var(--ford-blue) !important;
+  border-color: var(--ford-blue) !important;
+  color: white !important;
+}
+
+/* User profile details in sidebar */
+.user-profile {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar {
+  font-size: 1.6rem;
+  color: #a5f3fc;
+  display: flex;
+  align-items: center;
+}
+
+.user-name  { font-weight: 600; font-size: 0.9rem; color: white; }
+.user-email { font-size: 0.75rem; color: #cbd5e1 !important; }
+
+.logout-btn {
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+}
+
+@media (max-width: 991.98px) {
+  .vehicle-showcase-title { font-size: 1.5rem; }
+  .vehicle-showcase-img   { max-height: 220px; }
+  .input-ford-search      { min-width: 100%; }
+}
