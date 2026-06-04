@@ -1,10 +1,22 @@
 <div class="app-layout">
   
-  <!-- Sidebar Navigation -->
+  <div
+    class="sidebar-overlay"
+    *ngIf="isSidebarActive"
+    (click)="toggleSidebar()">
+  </div>
+
   <nav class="sidebar" [class.active]="isSidebarActive">
-    <div class="sidebar-logo">
-      <img src="/img/ford.png" alt="Ford Logo">
-    </div>
+
+  <div
+  class="sidebar-logo ford-menu-trigger"
+  (click)="toggleSidebar()">
+
+    <img
+      src="/img/ford.png"
+      alt="Ford Logo">
+
+  </div>
     
     <ul class="sidebar-menu">
       <li>
@@ -47,38 +59,49 @@
 
   <!-- Mobile Top Navbar -->
   <header class="mobile-navbar">
-    <img src="/img/ford.png" alt="Ford Logo">
-    <div class="d-flex align-items-center gap-2">
-      <!-- Theme switch for mobile -->
-      <button (click)="themeService.toggleTheme()" class="btn btn-sm text-white" style="font-size: 1.25rem; padding: 0.25rem;">
-        <i class="bi" [class.bi-sun-fill]="themeService.isDarkMode()" [class.bi-moon-fill]="!themeService.isDarkMode()"></i>
-      </button>
-      <button class="mobile-menu-btn" (click)="toggleSidebar()">
-        <i class="bi" [class.bi-list]="!isSidebarActive" [class.bi-x]="isSidebarActive"></i>
-      </button>
-    </div>
-  </header>
+
+    <img
+      src="/img/ford.png"
+      alt="Ford Logo"
+      class="top-logo ford-mobile-trigger"
+      (click)="toggleSidebar()">
+
+    <button
+      (click)="themeService.toggleTheme()"
+      class="btn btn-sm text-white"
+      style="font-size:1.25rem;padding:0.25rem;">
+
+      <i
+        class="bi"
+        [class.bi-sun-fill]="themeService.isDarkMode()"
+        [class.bi-moon-fill]="!themeService.isDarkMode()">
+      </i>
+
+    </button>
+
+</header>
 
   <!-- Main Content Area -->
-  <main class="main-content ford-dark-theme">
-    <div class="container-fluid">
-      
+  <main class="main-content ford-dark-theme">     
       <!-- Top Title Bar -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
           <h1 class="h3 mb-1 fw-bold">Dashboard FORD</h1>
           <p class="text-muted mb-0 small">Controle de frotas e telemetria em tempo real</p>
         </div>
-        <div class="logo-badge d-none d-sm-block">
-          <img src="/img/ford.png" alt="Ford Logo" class="top-logo">
-        </div>
+          <div class="logo-badge">
+            <img
+              src="/img/ford.png"
+              alt="Ford Logo"
+              class="top-logo">
+          </div>
       </div>
 
       <!-- Grid layout for Dropdown and Cards -->
-      <div class="row g-4 mb-4">
+      <div class="row g-3 mb-4">
         
         <!-- Left: Model Selector -->
-        <div class="col-xl-3 col-lg-4 col-md-12">
+        <div class="col-12 col-lg-4 col-xl-3">
           <div class="glass-card p-4 h-100 d-flex flex-column justify-content-center">
             <label class="form-label text-muted text-uppercase small fw-bold mb-3" for="vehicleSelect">Selecione o Modelo</label>
             <div class="custom-select-wrapper">
@@ -98,11 +121,11 @@
         </div>
 
         <!-- Right: Metrics KPI Cards -->
-        <div class="col-xl-9 col-lg-8 col-md-12">
+        <div class="col-12 col-lg-8 col-xl-9">
           <div class="row g-4 h-100">
             
             <!-- Card 1: Total Sales -->
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-lg-4">
               <div class="glass-card p-4 kpi-card h-100">
                 <div class="d-flex justify-content-between align-items-start mb-3">
                   <div class="kpi-icon icon-sales">
@@ -118,7 +141,7 @@
             </div>
 
             <!-- Card 2: Connected Vehicles -->
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-lg-4">
               <div class="glass-card p-4 kpi-card h-100">
                 <div class="d-flex justify-content-between align-items-start mb-3">
                   <div class="kpi-icon icon-connected">
@@ -134,7 +157,7 @@
             </div>
 
             <!-- Card 3: Software Updates -->
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-lg-4">
               <div class="glass-card p-4 kpi-card h-100">
                 <div class="d-flex justify-content-between align-items-start mb-3">
                   <div class="kpi-icon icon-software">
@@ -157,7 +180,7 @@
       <!-- Center: Main Hero Vehicle Image Showcase -->
       <div class="row g-4 mb-5">
         <div class="col-12">
-          <div class="glass-card p-5 text-center vehicle-showcase-box position-relative overflow-hidden">
+          <div class="vin-quick-helper mb-4 p-3 rounded-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
             <div class="radial-glow"></div>
             <div *ngIf="selectedVehicle() as vehicle" class="animate-fade-in py-3">
               <h2 class="vehicle-showcase-title fw-bold mb-1">{{ vehicle.vehicle }}</h2>
@@ -290,6 +313,5 @@
         </div>
       </div>
 
-    </div>
   </main>
 </div>

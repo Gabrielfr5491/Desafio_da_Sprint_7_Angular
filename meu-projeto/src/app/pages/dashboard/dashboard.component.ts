@@ -143,10 +143,12 @@ export class DashboardComponent implements OnInit {
       target: { value: vin }
     };
     this.vinSearchSubject.next(dummyEvent);
-  }
+  };
 
-  toggleSidebar(): void {
-    this.isSidebarActive = !this.isSidebarActive;
+  
+
+  toggleSidebar() {
+  this.isSidebarActive = !this.isSidebarActive;
   }
 
   onLogout(): void {
