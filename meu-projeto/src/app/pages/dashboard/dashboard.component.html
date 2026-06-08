@@ -44,7 +44,7 @@
         </div>
       </div>
       
-      <!-- Theme Switcher Button -->
+   
       <button (click)="themeService.toggleTheme()" class="theme-switch-btn w-100 mb-2">
         <i class="bi" [class.bi-sun-fill]="themeService.isDarkMode()" [class.bi-moon-fill]="!themeService.isDarkMode()"></i>
         <span>{{ themeService.isDarkMode() ? 'Modo Diurno' : 'Modo Noturno' }}</span>
@@ -57,7 +57,7 @@
     </div>
   </nav>
 
-  <!-- Mobile Top Navbar -->
+ 
   <header class="mobile-navbar">
 
     <img
@@ -81,9 +81,9 @@
 
 </header>
 
-  <!-- Main Content Area -->
+
   <main class="main-content ford-dark-theme">     
-      <!-- Top Title Bar -->
+
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
           <h1 class="h3 mb-1 fw-bold">Dashboard FORD</h1>
@@ -97,10 +97,10 @@
           </div>
       </div>
 
-      <!-- Grid layout for Dropdown and Cards -->
+    
       <div class="row g-3 mb-4">
         
-        <!-- Left: Model Selector -->
+
         <div class="col-12 col-lg-4 col-xl-3">
           <div class="glass-card p-4 h-100 d-flex flex-column justify-content-center">
             <label class="form-label text-muted text-uppercase small fw-bold mb-3" for="vehicleSelect">Selecione o Modelo</label>
@@ -120,11 +120,11 @@
           </div>
         </div>
 
-        <!-- Right: Metrics KPI Cards -->
+        
         <div class="col-12 col-lg-8 col-xl-9">
           <div class="row g-4 h-100">
             
-            <!-- Card 1: Total Sales -->
+            
             <div class="col-12 col-sm-6 col-lg-4">
               <div class="glass-card p-4 kpi-card h-100">
                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -140,7 +140,7 @@
               </div>
             </div>
 
-            <!-- Card 2: Connected Vehicles -->
+           
             <div class="col-12 col-sm-6 col-lg-4">
               <div class="glass-card p-4 kpi-card h-100">
                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -156,7 +156,7 @@
               </div>
             </div>
 
-            <!-- Card 3: Software Updates -->
+           
             <div class="col-12 col-sm-6 col-lg-4">
               <div class="glass-card p-4 kpi-card h-100">
                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -177,7 +177,7 @@
 
       </div>
 
-      <!-- Center: Main Hero Vehicle Image Showcase -->
+      
       <div class="row g-4 mb-5">
         <div class="col-12">
           <div class="vin-quick-helper mb-4 p-3 rounded-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
@@ -186,7 +186,7 @@
               <h2 class="vehicle-showcase-title fw-bold mb-1">{{ vehicle.vehicle }}</h2>
               <p class="text-muted small mb-4">Design aerodinâmico e performance Ford</p>
               
-              <!-- Vehicle Image -->
+              
               <img 
                 [src]="vehicle.img" 
                 [alt]="vehicle.vehicle" 
@@ -197,7 +197,7 @@
         </div>
       </div>
 
-      <!-- Bottom Section: Telemetry Search and Data Table -->
+      
       <div class="row g-4">
         <div class="col-12">
           <div class="glass-card p-4">
@@ -208,7 +208,7 @@
                 <p class="text-muted small mb-0">Monitore combustível, odômetro, coordenadas e status operacional</p>
               </div>
               
-              <!-- Reactive Search Input -->
+             
               <div class="search-input-box w-100 w-md-auto">
                 <div class="input-group search-group">
                   <span class="input-group-text search-icon-addon"><i class="bi bi-search"></i></span>
@@ -222,7 +222,7 @@
               </div>
             </div>
 
-            <!-- VIN Quick examples helper -->
+          
             <div class="vin-quick-helper mb-4 p-3 rounded-3 d-flex flex-wrap align-items-center gap-2">
               <span class="text-muted small me-2"><i class="bi bi-info-circle me-1"></i> Exemplos de VIN para testes rápidos:</span>
               <button (click)="fillExampleVin('2FRHDUYS2Y63NHD22454')" class="btn btn-sm btn-light border border-secondary font-monospace">
@@ -239,7 +239,7 @@
               </button>
             </div>
 
-            <!-- Loader Indicator -->
+         
             <div *ngIf="isSearchingTelemetry()" class="text-center py-5">
               <div class="spinner-border text-info mb-2" role="status">
                 <span class="visually-hidden">Buscando telemetria...</span>
@@ -267,7 +267,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- Case 1: Telemetry Data Found -->
+                
                   <tr *ngIf="telemetryResult() as data">
                     <td class="font-monospace text-info fw-bold">{{ searchVinQuery }}</td>
                     <td class="fw-bold">{{ formatNumber(data.odometro) }} Km</td>
@@ -298,7 +298,7 @@
                     <td class="text-muted font-monospace">{{ data.long }}</td>
                   </tr>
 
-                  <!-- Case 2: Empty/Default state -->
+                 
                   <tr *ngIf="!telemetryResult()">
                     <td colspan="6" class="text-center py-5 text-muted">
                       <i class="bi bi-search-heart display-6 mb-3 d-block text-secondary"></i>
