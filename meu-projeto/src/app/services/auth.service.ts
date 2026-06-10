@@ -17,11 +17,11 @@ export class AuthService {
   private readonly router = inject(Router);
   private readonly apiUrl = 'http://localhost:3001';
 
-  // Signals to track authentication state
+ 
   readonly currentUser = signal<UserResponse | null>(null);
 
   constructor() {
-    // Restore session on load (runs only on client-side)
+  
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedUser = localStorage.getItem('ford_user');
       if (storedUser) {
@@ -34,9 +34,7 @@ export class AuthService {
     }
   }
 
-  /**
-   * Log in user using the Node.js API
-   */
+  // login consumindo api
   login(nome: string, senha: string): Observable<UserResponse> {
     return this.http.post<UserResponse>(`${this.apiUrl}/login`, { nome, senha }).pipe(
       tap((user) => {
@@ -48,9 +46,7 @@ export class AuthService {
     );
   }
 
-  /**
-   * Log out the current user
-   */
+ 
   logout(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('ford_user');
@@ -59,9 +55,7 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  /**
-   * Check if user is logged in
-   */
+
   isAuthenticated(): boolean {
     return this.currentUser() !== null;
   }

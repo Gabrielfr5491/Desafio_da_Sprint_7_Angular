@@ -15,19 +15,16 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  // Model object bound using ngModel
+  
   loginData = {
     nome: '',
     senha: ''
   };
 
-  // State signals
   isLoading = signal(false);
   errorMessage = signal<string | null>(null);
 
-  /**
-   * Submit login form
-   */
+
   onSubmit(): void {
     if (!this.loginData.nome || !this.loginData.senha) {
       this.errorMessage.set('O campo de usuário ou senha não foi preenchido!');
@@ -44,7 +41,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.isLoading.set(false);
-        // Exibe a mensagem de erro retornada diretamente pelo servidor da API
+    
         if (err.error && err.error.message) {
           this.errorMessage.set(err.error.message);
         } else if (err.status === 401) {
