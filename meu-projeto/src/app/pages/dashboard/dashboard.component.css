@@ -1,35 +1,336 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+  overflow-x: clip; /* mais forte que hidden, corta qualquer vazamento */
+  background-color: #ffffff;
+}
+
+.main-content {
+  flex: 1 1 0%;
+  min-width: 0;
+  max-width: 100%;
+  width: 0; /* truque: força o flex item a respeitar o espaço disponível, não o conteúdo */
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f4f6f9;
+  overflow-x: clip;
+}
+
+.main-content > * {
+  max-width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* MENU (sidebar) */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  flex-shrink: 0;
+  background: #003478;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  transition: width 0.3s ease, min-width 0.3s ease, max-width 0.3s ease, left 0.3s ease;
+  z-index: 1040;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-logo {
+  cursor: pointer;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.2s ease, transform 0.2s ease, padding 0.3s ease;
+  user-select: none;
+}
+
+.sidebar-logo:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+}
+
+.sidebar-logo:active {
+  transform: scale(0.96);
+}
+
+.sidebar-logo img {
+  max-width: 140px;
+  width: 100%;
+  height: auto;
+  transition: max-width 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0 0.75rem;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  border-radius: 10px;
+  margin-bottom: 0.35rem;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.sidebar-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.sidebar-link.active {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-weight: 600;
+}
+
+.sidebar-link i {
+  font-size: 1.1rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+.sidebar-footer {
+  padding: 1rem 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.user-profile {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar {
+  font-size: 1.6rem;
+  color: #a5f3fc;
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.user-email {
+  font-size: 0.75rem;
+  color: #cbd5e1 !important;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.sidebar.collapsed {
+  width: 84px;
+  min-width: 84px;
+  max-width: 84px;
+  align-items: center;
+}
+
+.sidebar.collapsed .sidebar-logo {
+  padding: 1.5rem 0 1rem;
+  width: 100%;
+}
+
+.sidebar.collapsed .sidebar-logo img {
+  max-width: 36px;
+}
+
+.sidebar.collapsed .sidebar-menu {
+  width: 100%;
+  padding: 0 0.75rem;
+}
+
+.sidebar.collapsed .sidebar-link {
+  justify-content: center;
+  align-items: center;
+  padding: 0.85rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+}
+
+.sidebar.collapsed .sidebar-link i {
+  font-size: 1.25rem;
+  min-width: unset;
+}
+
+.sidebar.collapsed .sidebar-link span {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  width: 100%;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  border-top: none;
+}
+
+.sidebar.collapsed .sidebar-footer::before {
+  content: '';
+  width: 60%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin-bottom: 0.4rem;
+}
+
+.sidebar.collapsed .user-profile {
+  justify-content: center;
+  margin-bottom: 0 !important;
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+}
+
+.sidebar.collapsed .user-details {
+  display: none;
+}
+
+.sidebar.collapsed .avatar i {
+  font-size: 1.7rem;
+}
+
+.sidebar.collapsed .logout-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(220, 53, 69, 0.5);
+}
+
+.sidebar.collapsed .logout-btn i {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.sidebar.collapsed .logout-btn span {
+  display: none;
+}
+
+.sidebar.collapsed .logout-btn:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1030;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-navbar {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: #003478;
+  padding: 0.75rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  width: 100%;
+}
+
+.mobile-navbar .top-logo {
+  height: 32px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 100vh;
+  width: auto;
+  padding: 2rem;
+  background-color: #f4f6f9;
+}
+
+/* CONTEÚDO DO DASHBOARD */
 .top-logo {
   max-width: 90px;
 }
 
-
 .select-ford-style {
-  background-color: var(--select-bg);
-  border: 1px solid var(--select-border);
-  color: var(--text-color);
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  color: #1f2937;
   padding: 0.65rem 1rem;
   border-radius: 6px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.25s ease;
-  background-image: var(--select-arrow);
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
 }
 
 .select-ford-style:focus {
-  background-color: var(--select-bg);
-  border-color: var(--ford-blue-light);
+  border-color: #0ea5e9;
   box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
   outline: none;
 }
 
 .select-ford-style option {
-  background-color: var(--card-bg);
-  color: var(--text-color);
+  background-color: #ffffff;
+  color: #1f2937;
 }
-
 
 .kpi-card {
   transition: all 0.25s ease;
@@ -45,25 +346,23 @@
   font-size: 1.25rem;
 }
 
-.icon-sales   { background-color: rgba(16, 185, 129, 0.1); color: #10b981; }
+.icon-sales { background-color: rgba(16, 185, 129, 0.1); color: #10b981; }
 .icon-connected { background-color: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
 .icon-software { background-color: rgba(168, 85, 247, 0.1); color: #a855f7; }
 
 .kpi-value {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: #1f2937;
   letter-spacing: -0.5px;
   margin-top: 0.5rem;
-  transition: color 0.25s ease;
 }
 
 .kpi-unit {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: #6c757d;
   font-weight: 500;
 }
-
 
 .pulse-indicator {
   width: 8px;
@@ -80,18 +379,15 @@
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-
 .vehicle-showcase-box {
-  background: var(--showcase-bg);
-  border: 1px solid var(--border-color);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
-  transition: background 0.25s ease;
 }
 
 .vehicle-showcase-title {
   font-size: 1.85rem;
-  color: var(--text-color);
-  transition: color 0.25s ease;
+  color: #1f2937;
 }
 
 .vehicle-showcase-img {
@@ -109,403 +405,328 @@
   display: none;
 }
 
-
-body.theme-dark .radial-glow {
-  display: block;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(14, 165, 233, 0.12) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-
 .search-group {
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid var(--search-border);
-  transition: border-color 0.25s ease;
+  border: 1px solid #dee2e6;
 }
 
 .search-icon-addon {
-  background: var(--search-addon-bg);
+  background: #f4f6f9;
   border: none;
-  color: var(--text-muted);
+  color: #6c757d;
   padding-left: 0.9rem;
 }
 
 .input-ford-search {
-  background: var(--search-bg);
+  background: #f4f6f9;
   border: none;
-  color: var(--text-color);
+  color: #1f2937;
   padding: 0.6rem 1rem;
   font-size: 0.9rem;
   min-width: 260px;
-  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .input-ford-search::placeholder {
-  color: var(--text-muted);
+  color: #6c757d;
 }
 
 .input-ford-search:focus {
-  background: var(--search-bg);
-  color: var(--text-color);
+  background: #f4f6f9;
+  color: #1f2937;
   box-shadow: none;
   outline: none;
 }
 
-
 .vin-quick-helper {
-  background-color: var(--table-th-bg);
-  border: 1px dashed var(--border-color);
-  transition: background-color 0.25s ease;
+  background-color: #f4f6f9;
+  border: 1px dashed #dee2e6;
 }
 
 .vin-quick-helper button {
   font-size: 0.75rem;
   padding: 0.3rem 0.65rem;
   transition: all 0.2s ease;
-  background: var(--card-bg) !important;
-  color: var(--text-color) !important;
-  border-color: var(--border-color) !important;
 }
 
 .vin-quick-helper button:hover {
-  background-color: var(--ford-blue) !important;
-  border-color: var(--ford-blue) !important;
-  color: white !important;
-}
-
-
-.user-profile {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 0.65rem 0.85rem;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.avatar {
-  font-size: 1.6rem;
-  color: #a5f3fc;
-  display: flex;
-  align-items: center;
-}
-
-.user-name  { font-weight: 600; font-size: 0.9rem; color: white; }
-.user-email { font-size: 0.75rem; color: #cbd5e1 !important; }
-
-.logout-btn {
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 0.85rem;
-  padding: 0.5rem;
+  background-color: #003478 !important;
+  border-color: #003478 !important;
+  color: #fff !important;
 }
 
 .custom-select-wrapper {
-    width: 100%;
-    overflow: hidden;
+  width: 100%;
+  overflow: hidden;
 }
 
 .select-ford-style {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .glass-card {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible; 
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
 }
+
 .glass-card p {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
-@media (max-width:991px){
-
-  .vehicle-showcase-title{
-      font-size:1.5rem;
-  }
-
-  .vehicle-showcase-img{
-      max-height:220px;
-  }
-
-  .input-ford-search{
-      min-width:100%;
-  }
-
-  .search-input-box{
-      width:100%;
-  }
+.ford-table-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
 }
 
-@media (max-width:768px){
-
-    html,
-    body,
-    .app-layout,
-    .main-content {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-    }
-
-    .container-fluid {
-        padding-left: 12px !important;
-        padding-right: 12px !important;
-    }
-
-    .row {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    [class*="col-"] {
-        padding-left: 6px !important;
-        padding-right: 6px !important;
-    }
-
-    .glass-card {
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
-    }
-
-    .vehicle-showcase-img {
-        width: 100%;
-        height: auto;
-        max-width: 100%;
-    }
-
-    .kpi-value {
-        font-size: 1.4rem;
-    }
-
-    .vin-quick-helper button {
-        width: 100%;
-    }
-    
-    .col-12,
-    .col-sm-6,
-    .col-lg-4 {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    .custom-select-wrapper,
-    .select-ford-style {
-        width: 100%;
-    }
-
-    select {
-        max-width: 100%;
-    }
-
-  .glass-card{
-      padding:1rem !important;
-  }
-
-  .kpi-card{
-      text-align:center;
-  }
-
-  .kpi-icon{
-      margin:auto;
-  }
-
-  .kpi-value{
-      font-size:1.4rem;
-  }
-
-  .vehicle-showcase-box{
-      padding:1rem !important;
-  }
-
-  .vehicle-showcase-title{
-      font-size:1.25rem;
-  }
-
-  .vehicle-showcase-img{
-      width:100%;
-      max-height:180px;
-  }
-
-  .search-input-box,
-  .search-group,
-  .input-ford-search{
-      width:100%;
-  }
-
-  .ford-table-container{
-      overflow-x:auto;
-      -webkit-overflow-scrolling:touch;
-  }
-
-  .ford-table{
-      min-width:700px;
-  }
-
-  .vin-quick-helper{
-      flex-direction:column;
-      align-items:stretch !important;
-  }
-
-  .vin-quick-helper button{
-      width:100%;
-  }
-
-  .select-ford-style{
-      width:100%;
-  }
+.ford-table {
+  width: 100%;
+  min-width: 650px; 
+  border-collapse: collapse;
 }
 
-@media (max-width:576px){
+.ford-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #6c757d;
+  padding: 0.75rem 1rem;
+  background-color: #f4f6f9;
+  border-bottom: 1px solid #e5e7eb;
+}
 
-.container-fluid {
+.ford-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-status-on {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.badge-status-off {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+@media (max-width: 991px) {
+  .vehicle-showcase-title {
+    font-size: 1.5rem;
+  }
+
+  .vehicle-showcase-img {
+    max-height: 220px;
+  }
+
+  .input-ford-search {
+    min-width: 100%;
+  }
+
+  .search-input-box {
     width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-  h1.h3{
-      font-size:1.4rem;
-  }
-
-  .vehicle-showcase-title{
-      font-size:1.1rem;
-  }
-
-  .kpi-value{
-      font-size:1.2rem;
-  }
-
-  .kpi-icon{
-      width:35px;
-      height:35px;
-      font-size:1rem;
-  }
-
-  .mobile-navbar img{
-      max-width:80px;
   }
 }
 
-.sidebar {
-  width: 240px;
-  height: 100vh;
-}
-
-
-@media (max-width: 768px) {
-  
-  .logo-badge{
-      display:none;
+@media (max-width: 991.98px) {
+  .app-layout {
+    flex-direction: column;
   }
-  .sidebar-logo{
-        cursor:pointer;
-    }
+
+  .mobile-navbar {
+    display: flex;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
   .sidebar {
     position: fixed;
     top: 0;
-    left: -260px;
-    width: 260px;
+    left: -100%;
     height: 100vh;
-    z-index: 9999;
-
-    transition: all .3s ease;
-
-    background: #020617;
-    box-shadow: 0 0 30px rgba(0,0,0,.4);
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
   }
 
   .sidebar.active {
     left: 0;
   }
 
-  .main-content {
+  .sidebar.collapsed {
+    width: 260px;
+    min-width: 260px;
+    max-width: 260px;
+    align-items: stretch;
+  }
+
+  .sidebar.collapsed .sidebar-logo {
+    padding: 1.25rem;
+  }
+
+  .sidebar.collapsed .sidebar-logo img {
+    max-width: 140px;
+  }
+
+  .sidebar.collapsed .sidebar-link {
+    justify-content: flex-start;
+    padding: 0.75rem 1rem;
+  }
+
+  .sidebar.collapsed .sidebar-link span,
+  .sidebar.collapsed .user-details,
+  .sidebar.collapsed .logout-btn span {
+    display: block;
+  }
+
+  .sidebar.collapsed .sidebar-footer {
+    align-items: stretch;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .sidebar.collapsed .sidebar-footer::before {
+    display: none;
+  }
+
+  .sidebar.collapsed .user-profile {
+    justify-content: flex-start;
+    padding: 0.65rem 0.85rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar.collapsed .logout-btn {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    padding: 0.5rem;
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  .container-fluid {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .row {
     margin-left: 0 !important;
-    width: 100% !important;
+    margin-right: 0 !important;
+  }
+
+  [class*="col-"] {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  .vehicle-showcase-img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .kpi-value {
+    font-size: 1.4rem;
+  }
+
+  .vin-quick-helper button {
+    width: 100%;
+  }
+
+  .custom-select-wrapper,
+  .select-ford-style {
+    width: 100%;
+  }
+
+  .glass-card {
+    padding: 1rem !important;
+  }
+
+  .kpi-card {
+    text-align: center;
+  }
+
+  .kpi-icon {
+    margin: auto;
+  }
+
+  .vehicle-showcase-box {
+    padding: 1rem !important;
+  }
+
+  .ford-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ford-table {
+    min-width: 700px;
+  }
+
+  .vin-quick-helper {
+    flex-direction: column;
+    align-items: stretch !important;
   }
 }
 
-
-.ford-mobile-trigger {
-  pointer-events: none;
-}
-
-@media (max-width:768px){
-
-  .ford-mobile-trigger{
-    pointer-events:auto;
-    cursor:pointer;
-    transition:.3s ease;
+@media (max-width: 576px) {
+  h1.h3 {
+    font-size: 1.4rem;
   }
 
-  .ford-mobile-trigger:hover{
-    transform:scale(1.05);
+  .vehicle-showcase-title {
+    font-size: 1.1rem;
   }
 
-  .ford-mobile-trigger:active{
-    transform:scale(.95);
+  .kpi-value {
+    font-size: 1.2rem;
   }
 
-  .sidebar{
-    position:fixed;
-    top:0;
-    left:-260px;
-    width:260px;
-    height:100vh;
-    z-index:10000;
-    transition:left .3s ease;
-    background:#020617;
-    box-shadow:0 0 30px rgba(0,0,0,.4);
+  .kpi-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
   }
 
-  .sidebar.active{
-    left:0;
-  }
-
-  .sidebar-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    backdrop-filter:blur(2px);
-    z-index:9999;
-  }
-
-  .main-content{
-    margin-left:0 !important;
-    width:100% !important;
-  }
-
-  .mobile-navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:12px 16px;
+  .mobile-navbar img {
+    max-width: 80px;
   }
 }
-.sidebar-overlay {
-  position: fixed;
-  inset: 0;
 
-  background: rgba(0,0,0,.5);
-
-  z-index: 9998;
-}
-.ford-menu-trigger{
-    cursor:pointer;
-    transition:.3s ease;
-}
-
-.ford-menu-trigger:hover{
-    transform:scale(1.05);
+@media (min-width: 992px) {
+  .sidebar-overlay {
+    display: none !important;
+  }
 }

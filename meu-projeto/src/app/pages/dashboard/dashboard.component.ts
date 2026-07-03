@@ -1,12 +1,11 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Subject, of } from 'rxjs'; // Adicionado o 'of' aqui
+import { Subject, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, catchError, tap, map } from 'rxjs';
 import { VehicleService, Veiculo, TelemetryData } from '../../services/vehicle.service';
 import { AuthService } from '../../services/auth.service';
-import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,23 +17,24 @@ import { ThemeService } from '../../services/theme.service';
 export class DashboardComponent implements OnInit {
   private readonly vehicleService = inject(VehicleService);
   private readonly authService = inject(AuthService);
-  readonly themeService = inject(ThemeService);
 
   currentUser = this.authService.currentUser;
-  
+
   private readonly vinSearchSubject = new Subject<any>();
 
   vehicles = signal<Veiculo[]>([]);
   selectedVehicle = signal<Veiculo | null>(null);
   telemetryResult = signal<TelemetryData | null>(null);
   searchVinQuery = '';
+
   isSidebarActive = false;
+  isSidebarCollapsed = false;
+  private readonly MOBILE_BREAKPOINT = 992;
 
   isSearchingTelemetry = signal(false);
   telemetryError = signal<string | null>(null);
 
   ngOnInit(): void {
-    
     this.vehicleService.getVehicles().subscribe({
       next: (data) => {
         this.vehicles.set(data.vehicles);
@@ -47,13 +47,9 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-   
     this.vinSearchSubject.pipe(
-      
       map((event: any) => (event?.target?.value || '').trim()),
-      
       debounceTime(400),
-      
       filter((val: string) => {
         if (val.length === 0) {
           this.telemetryResult.set(null);
@@ -63,34 +59,30 @@ export class DashboardComponent implements OnInit {
         }
         return true;
       }),
-      
       distinctUntilChanged(),
-      
       tap(() => {
         this.isSearchingTelemetry.set(true);
         this.telemetryError.set(null);
       }),
-      
-      switchMap((vin: string) => 
+      switchMap((vin: string) =>
         this.vehicleService.getVehicleData(vin).pipe(
           catchError((err) => {
             this.isSearchingTelemetry.set(false);
-            
+
             if (err.status === 400) {
               this.telemetryError.set('Código VIN utilizado não foi encontrado!');
             } else {
               this.telemetryError.set('Erro ao carregar dados do veículo.');
             }
-            
+
             this.telemetryResult.set(null);
-          
+
             return of(null);
           })
         )
       )
     ).subscribe({
       next: (data) => {
-      
         if (data) {
           this.telemetryResult.set(data);
           this.telemetryError.set(null);
@@ -130,11 +122,36 @@ export class DashboardComponent implements OnInit {
     this.vinSearchSubject.next(dummyEvent);
   }
 
-  toggleSidebar() {
+  onLogout(): void {
+    this.authService.logout();
+  }
+
+  toggleSidebar(): void {
     this.isSidebarActive = !this.isSidebarActive;
   }
 
-  onLogout(): void {
-    this.authService.logout();
+  toggleCollapse(): void {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  onLogoClick(): void {
+    if (this.isMobile()) {
+      this.toggleSidebar();
+    } else {
+      this.toggleCollapse();
+    }
+  }
+
+  private isMobile(): boolean {
+    return window.innerWidth < this.MOBILE_BREAKPOINT;
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (!this.isMobile()) {
+      this.isSidebarActive = false;
+    } else {
+      this.isSidebarCollapsed = false;
+    }
   }
 }

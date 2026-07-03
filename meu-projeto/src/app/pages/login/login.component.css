@@ -1,8 +1,8 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 .login-wrapper {
-  background-color: var(--ford-blue);
-  background-image: linear-gradient(135deg, var(--ford-blue) 0%, var(--ford-blue-dark) 100%);
+  background-color: #003478;
+  background-image: linear-gradient(135deg, #003478 0%, #00264d 100%);
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -22,7 +22,7 @@
 
 .brand-side {
   background-color: #ffffff;
-  border-right: 1px solid var(--ford-border-color);
+  border-right: 1px solid #e5e7eb;
   padding: 3rem;
   display: flex;
   flex-direction: column;
@@ -45,20 +45,20 @@
 }
 
 .brand-text h3 {
-  color: var(--ford-blue);
+  color: #003478;
   font-weight: 700;
   margin-top: 1.5rem;
   font-size: 1.5rem;
 }
 
 .brand-text p {
-  color: var(--ford-text-muted);
+  color: #6c757d;
   font-weight: 500;
   font-size: 1rem;
 }
 
 .form-side {
-  background: var(--ford-blue);
+  background: #003478;
   padding: 3rem;
   color: whitesmoke;
   display: flex;
@@ -67,31 +67,28 @@
 }
 
 .login-form-box .form-control {
-  color: #212529 !important;      
-  background-color: #ffffff;       
-  border: 1px solid #ced4da;      
+  color: #212529 !important;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-
 .login-form-box .form-control::placeholder {
-  color: #6c757d;                
+  color: #6c757d;
   opacity: 1;
 }
-
 
 .login-form-box .form-control:focus {
   color: #212529 !important;
   background-color: #ffffff;
-  border-color: #003366;          
+  border-color: #003366;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(0, 51, 102, 0.25);
 }
 
-
 .login-form-box .input-group-text {
-  background-color: #f8f9fa;      
-  color: #003366;                 
+  background-color: #f8f9fa;
+  color: #003366;
   border: 1px solid #ced4da;
 }
 
@@ -109,12 +106,12 @@
 
 .subtitle {
   font-size: 0.9rem;
-  color: var(--ford-text-muted) !important;
+  color: #cbd5e1 !important;
 }
 
 .form-label {
   font-weight: 600;
-  color: var(--ford-text-dark);
+  color: #1f2937;
   font-size: 0.85rem;
   margin-bottom: 0.4rem;
 }
@@ -130,7 +127,7 @@
 .form-control {
   background: #ffffff;
   border: 1px solid #cbd5e1;
-  color: var(--ford-text-dark);
+  color: #1f2937;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
   padding: 0.65rem 0.85rem;
@@ -144,8 +141,8 @@
 
 .form-control:focus {
   background: #ffffff;
-  border-color: var(--ford-blue);
-  color: var(--ford-text-dark);
+  border-color: #003478;
+  color: #1f2937;
   box-shadow: 0 0 0 3px rgba(0, 44, 108, 0.15);
 }
 
@@ -155,20 +152,15 @@
 }
 
 .form-check-input:checked {
-  background-color: var(--ford-blue);
-  border-color: var(--ford-blue);
+  background-color: #003478;
+  border-color: #003478;
 }
 
 .form-check-label {
   font-size: 0.85rem;
   cursor: pointer;
-  color: var(--ford-text-muted) !important;
+  color: #6c757d !important;
 }
-
-
-
-
-
 
 .login-form-box .form-control {
   color: #212529 !important;
@@ -183,17 +175,14 @@
   opacity: 1;
 }
 
-
 .login-form-box .form-control:required {
-  border-right: 4px solid #003478 !important; 
+  border-right: 4px solid #003478 !important;
 }
-
 
 .login-form-box .form-control:required:valid {
   border-color: #2ecc71 !important;
   background: #f0fff4 !important;
 }
-
 
 .login-form-box .form-control:focus {
   color: #212529 !important;
@@ -203,17 +192,12 @@
   outline: none;
 }
 
-
 .login-form-box .input-group-text {
   background-color: #f8f9fa !important;
   color: #003478 !important;
   border: 1px solid #d4d4d4 !important;
   transition: 0.3s;
 }
-
-
-
-
 
 .login-form-box .btn-ford {
   width: 100%;
@@ -222,25 +206,22 @@
   letter-spacing: 1px;
   font-weight: bold !important;
   transition: 0.4s ease-in-out;
-  background-color: rgba(255, 255, 255, 0.2) !important; 
+  background-color: rgba(255, 255, 255, 0.2) !important;
   color: rgba(255, 255, 255, 0.4) !important;
   cursor: not-allowed !important;
 }
 
-
 .login-form-box form:not(.ng-invalid) .btn-ford:not(:disabled) {
-  background-color: #ffffff !important; 
+  background-color: #ffffff !important;
   color: #003478 !important;
   cursor: pointer !important;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
 }
 
-
 .login-form-box form:not(.ng-invalid) .btn-ford:not(:disabled):hover {
   background: #e6e6e6 !important;
   transform: translateY(-2px);
 }
-
 
 .login-form-box .btn-ford:disabled {
   background-color: rgba(255, 255, 255, 0.2) !important;
@@ -249,9 +230,6 @@
   transform: none !important;
   box-shadow: none !important;
 }
-
-
-
 
 .login-form-box .form-check-label {
   color: #ffffff !important;
@@ -268,8 +246,6 @@
   background-color: #007cc3 !important;
   border-color: #007cc3 !important;
 }
-
-
 
 @media (max-width: 767.98px) {
   .login-container {

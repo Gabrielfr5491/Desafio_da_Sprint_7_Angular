@@ -1,32 +1,20 @@
 <div class="app-layout">
-  
-  <div
-    class="sidebar-overlay"
-    *ngIf="isSidebarActive"
-    (click)="toggleSidebar()">
-  </div>
 
-  <nav class="sidebar" [class.active]="isSidebarActive">
+  <!-- MENU (sidebar) -->
+  <nav class="sidebar" [class.active]="isSidebarActive" [class.collapsed]="isSidebarCollapsed">
+    <div class="sidebar-logo" (click)="onLogoClick()" role="button" tabindex="0" title="Expandir/Recolher menu">
+      <img src="/img/ford.png" alt="Ford Logo">
+    </div>
 
-  <div
-  class="sidebar-logo ford-menu-trigger"
-  (click)="toggleSidebar()">
-
-    <img
-      src="/img/ford.png"
-      alt="Ford Logo">
-
-  </div>
-    
     <ul class="sidebar-menu">
       <li>
-        <a routerLink="/home" routerLinkActive="active" class="sidebar-link">
+        <a routerLink="/home" routerLinkActive="active" class="sidebar-link" title="Home">
           <i class="bi bi-house-door-fill"></i>
           <span>Home</span>
         </a>
       </li>
       <li>
-        <a routerLink="/dashboard" routerLinkActive="active" class="sidebar-link">
+        <a routerLink="/dashboard" routerLinkActive="active" class="sidebar-link" title="Dashboard">
           <i class="bi bi-speedometer2"></i>
           <span>Dashboard</span>
         </a>
@@ -34,7 +22,7 @@
     </ul>
 
     <div class="sidebar-footer">
-      <div class="user-profile mb-3 d-flex align-items-center gap-2">
+      <div class="user-profile mb-3 d-flex align-items-center gap-2" title="{{ currentUser()?.nome || 'Admin' }}">
         <div class="avatar">
           <i class="bi bi-person-circle"></i>
         </div>
@@ -43,275 +31,240 @@
           <div class="user-email text-truncate text-muted small">{{ currentUser()?.email || 'admin@email.com' }}</div>
         </div>
       </div>
-      
-   
-      <button (click)="themeService.toggleTheme()" class="theme-switch-btn w-100 mb-2">
-        <i class="bi" [class.bi-sun-fill]="themeService.isDarkMode()" [class.bi-moon-fill]="!themeService.isDarkMode()"></i>
-        <span>{{ themeService.isDarkMode() ? 'Modo Diurno' : 'Modo Noturno' }}</span>
-      </button>
 
-      <button (click)="onLogout()" class="btn btn-outline-danger w-100 logout-btn">
-        <i class="bi bi-box-arrow-right me-2"></i>
-        Sair
+      <button (click)="onLogout()" class="btn btn-outline-danger w-100 logout-btn" title="Sair">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Sair</span>
       </button>
     </div>
   </nav>
+  <!-- FIM MENU -->
 
- 
+  <div class="sidebar-overlay" [class.active]="isSidebarActive" (click)="toggleSidebar()"></div>
+
   <header class="mobile-navbar">
-
     <img
       src="/img/ford.png"
       alt="Ford Logo"
       class="top-logo ford-mobile-trigger"
       (click)="toggleSidebar()">
+  </header>
 
-    <button
-      (click)="themeService.toggleTheme()"
-      class="btn btn-sm text-white"
-      style="font-size:1.25rem;padding:0.25rem;">
+  <main class="main-content">
 
-      <i
-        class="bi"
-        [class.bi-sun-fill]="themeService.isDarkMode()"
-        [class.bi-moon-fill]="!themeService.isDarkMode()">
-      </i>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="h3 mb-1 fw-bold">Dashboard FORD</h1>
+        <p class="text-muted mb-0 small">Controle de frotas e telemetria em tempo real</p>
+      </div>
+      <div class="logo-badge">
+        <img
+          src="/img/ford.png"
+          alt="Ford Logo"
+          class="top-logo">
+      </div>
+    </div>
 
-    </button>
+    <div class="row g-3 mb-4">
 
-</header>
-
-
-  <main class="main-content ford-dark-theme">     
-
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h1 class="h3 mb-1 fw-bold">Dashboard FORD</h1>
-          <p class="text-muted mb-0 small">Controle de frotas e telemetria em tempo real</p>
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="glass-card p-4 h-100 d-flex flex-column justify-content-center">
+          <label class="form-label text-muted text-uppercase small fw-bold mb-3" for="vehicleSelect">Selecione o Modelo</label>
+          <div class="custom-select-wrapper">
+            <select
+              id="vehicleSelect"
+              class="form-select select-ford-style"
+              (change)="onVehicleChange($event)">
+              <option *ngFor="let item of vehicles()" [value]="item.vehicle" [selected]="selectedVehicle()?.vehicle === item.vehicle">
+                {{ item.vehicle }}
+              </option>
+            </select>
+          </div>
+          <p class="text-muted mt-3 mb-0 small">
+            *Selecione o modelo para atualizar as métricas e a imagem.
+          </p>
         </div>
-          <div class="logo-badge">
+      </div>
+
+      <div class="col-12 col-lg-8 col-xl-9">
+        <div class="row g-4 h-100">
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="glass-card p-4 kpi-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="kpi-icon icon-sales">
+                  <i class="bi bi-graph-up-arrow"></i>
+                </div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle small px-2">Anual</span>
+              </div>
+              <h6 class="text-muted text-uppercase small fw-bold mb-1">Total de Vendas</h6>
+              <div class="kpi-value">
+                {{ formatNumber(selectedVehicle()?.volumetotal) }} <span class="kpi-unit">Unid.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="glass-card p-4 kpi-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="kpi-icon icon-connected">
+                  <i class="bi bi-wifi"></i>
+                </div>
+                <span class="pulse-indicator"></span>
+              </div>
+              <h6 class="text-muted text-uppercase small fw-bold mb-1">Veículos Conectados</h6>
+              <div class="kpi-value">
+                {{ formatNumber(selectedVehicle()?.connected) }} <span class="kpi-unit">Unid.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-lg-4">
+            <div class="glass-card p-4 kpi-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="kpi-icon icon-software">
+                  <i class="bi bi-cloud-arrow-down"></i>
+                </div>
+                <span class="badge bg-info-subtle text-info border border-info-subtle small px-2">Atualizado</span>
+              </div>
+              <h6 class="text-muted text-uppercase small fw-bold mb-1">Update Software</h6>
+              <div class="kpi-value">
+                {{ formatNumber(selectedVehicle()?.softwareUpdates) }} <span class="kpi-unit">Unid.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row g-4 mb-5">
+      <div class="col-12">
+        <div class="vin-quick-helper mb-4 p-3 rounded-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
+          <div class="radial-glow"></div>
+          <div *ngIf="selectedVehicle() as vehicle" class="animate-fade-in py-3">
+            <h2 class="vehicle-showcase-title fw-bold mb-1">{{ vehicle.vehicle }}</h2>
+            <p class="text-muted small mb-4">Design aerodinâmico e performance Ford</p>
+
             <img
-              src="/img/ford.png"
-              alt="Ford Logo"
-              class="top-logo">
-          </div>
-      </div>
-
-    
-      <div class="row g-3 mb-4">
-        
-
-        <div class="col-12 col-lg-4 col-xl-3">
-          <div class="glass-card p-4 h-100 d-flex flex-column justify-content-center">
-            <label class="form-label text-muted text-uppercase small fw-bold mb-3" for="vehicleSelect">Selecione o Modelo</label>
-            <div class="custom-select-wrapper">
-              <select 
-                id="vehicleSelect" 
-                class="form-select select-ford-style" 
-                (change)="onVehicleChange($event)">
-                <option *ngFor="let item of vehicles()" [value]="item.vehicle" [selected]="selectedVehicle()?.vehicle === item.vehicle">
-                  {{ item.vehicle }}
-                </option>
-              </select>
-            </div>
-            <p class="text-muted mt-3 mb-0 small">
-              *Selecione o modelo para atualizar as métricas e a imagem.
-            </p>
-          </div>
-        </div>
-
-        
-        <div class="col-12 col-lg-8 col-xl-9">
-          <div class="row g-4 h-100">
-            
-            
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="glass-card p-4 kpi-card h-100">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div class="kpi-icon icon-sales">
-                    <i class="bi bi-graph-up-arrow"></i>
-                  </div>
-                  <span class="badge bg-success-subtle text-success border border-success-subtle small px-2">Anual</span>
-                </div>
-                <h6 class="text-muted text-uppercase small fw-bold mb-1">Total de Vendas</h6>
-                <div class="kpi-value">
-                  {{ formatNumber(selectedVehicle()?.volumetotal) }} <span class="kpi-unit">Unid.</span>
-                </div>
-              </div>
-            </div>
-
-           
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="glass-card p-4 kpi-card h-100">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div class="kpi-icon icon-connected">
-                    <i class="bi bi-wifi"></i>
-                  </div>
-                  <span class="pulse-indicator"></span>
-                </div>
-                <h6 class="text-muted text-uppercase small fw-bold mb-1">Veículos Conectados</h6>
-                <div class="kpi-value">
-                  {{ formatNumber(selectedVehicle()?.connected) }} <span class="kpi-unit">Unid.</span>
-                </div>
-              </div>
-            </div>
-
-           
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="glass-card p-4 kpi-card h-100">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div class="kpi-icon icon-software">
-                    <i class="bi bi-cloud-arrow-down"></i>
-                  </div>
-                  <span class="badge bg-info-subtle text-info border border-info-subtle small px-2">Atualizado</span>
-                </div>
-                <h6 class="text-muted text-uppercase small fw-bold mb-1">Update Software</h6>
-                <div class="kpi-value">
-                  {{ formatNumber(selectedVehicle()?.softwareUpdates) }} <span class="kpi-unit">Unid.</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
-      
-      <div class="row g-4 mb-5">
-        <div class="col-12">
-          <div class="vin-quick-helper mb-4 p-3 rounded-3 d-flex flex-wrap justify-content-center align-items-center gap-2">
-            <div class="radial-glow"></div>
-            <div *ngIf="selectedVehicle() as vehicle" class="animate-fade-in py-3">
-              <h2 class="vehicle-showcase-title fw-bold mb-1">{{ vehicle.vehicle }}</h2>
-              <p class="text-muted small mb-4">Design aerodinâmico e performance Ford</p>
-              
-              
-              <img 
-                [src]="vehicle.img" 
-                [alt]="vehicle.vehicle" 
-                class="img-fluid vehicle-showcase-img"
-                onerror="this.src='/img/ranger.png'">
-            </div>
+              [src]="vehicle.img"
+              [alt]="vehicle.vehicle"
+              class="img-fluid vehicle-showcase-img"
+              onerror="this.src='/img/ranger.png'">
           </div>
         </div>
       </div>
+    </div>
 
-      
-      <div class="row g-4">
-        <div class="col-12">
-          <div class="glass-card p-4">
-            
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
-              <div>
-                <h3 class="h5 fw-bold mb-1">Status de Telemetria por VIN</h3>
-                <p class="text-muted small mb-0">Monitore combustível, odômetro, coordenadas e status operacional</p>
-              </div>
-              
-             
-              <div class="search-input-box w-100 w-md-auto">
-                <div class="input-group search-group">
-                  <span class="input-group-text search-icon-addon"><i class="bi bi-search"></i></span>
-                  <input 
-                    type="text" 
-                    class="form-control input-ford-search" 
-                    placeholder="Código VIN do veículo" 
-                    [(ngModel)]="searchVinQuery"
-                    (input)="onSearchInput($event)">
-                </div>
+    <div class="row g-4">
+      <div class="col-12">
+        <div class="glass-card p-4">
+
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
+            <div>
+              <h3 class="h5 fw-bold mb-1">Status de Telemetria por VIN</h3>
+              <p class="text-muted small mb-0">Monitore combustível, odômetro, coordenadas e status operacional</p>
+            </div>
+
+            <div class="search-input-box w-100 w-md-auto">
+              <div class="input-group search-group">
+                <span class="input-group-text search-icon-addon"><i class="bi bi-search"></i></span>
+                <input
+                  type="text"
+                  class="form-control input-ford-search"
+                  placeholder="Código VIN do veículo"
+                  [(ngModel)]="searchVinQuery"
+                  (input)="onSearchInput($event)">
               </div>
             </div>
+          </div>
 
-          
-            <div class="vin-quick-helper mb-4 p-3 rounded-3 d-flex flex-wrap align-items-center gap-2">
-              <span class="text-muted small me-2"><i class="bi bi-info-circle me-1"></i> Exemplos de VIN para testes rápidos:</span>
-              <button (click)="fillExampleVin('2FRHDUYS2Y63NHD22454')" class="btn btn-sm btn-light border border-secondary font-monospace">
-                Ranger Active
-              </button>
-              <button (click)="fillExampleVin('2RFAASDY54E4HDU34874')" class="btn btn-sm btn-light border border-secondary font-monospace">
-                Mustang Inactive
-              </button>
-              <button (click)="fillExampleVin('2FRHDUYS2Y63NHD22455')" class="btn btn-sm btn-light border border-secondary font-monospace">
-                Ranger high km
-              </button>
-              <button (click)="fillExampleVin('2RFAASDY54E4HDU34875')" class="btn btn-sm btn-light border border-secondary font-monospace">
-                Territory Inactive
-              </button>
+          <div class="vin-quick-helper mb-4 p-3 rounded-3 d-flex flex-wrap align-items-center gap-2">
+            <span class="text-muted small me-2"><i class="bi bi-info-circle me-1"></i> Exemplos de VIN para testes rápidos:</span>
+            <button (click)="fillExampleVin('2FRHDUYS2Y63NHD22454')" class="btn btn-sm btn-light border border-secondary font-monospace">
+              Ranger Active
+            </button>
+            <button (click)="fillExampleVin('2RFAASDY54E4HDU34874')" class="btn btn-sm btn-light border border-secondary font-monospace">
+              Mustang Inactive
+            </button>
+            <button (click)="fillExampleVin('2FRHDUYS2Y63NHD22455')" class="btn btn-sm btn-light border border-secondary font-monospace">
+              Ranger high km
+            </button>
+            <button (click)="fillExampleVin('2RFAASDY54E4HDU34875')" class="btn btn-sm btn-light border border-secondary font-monospace">
+              Territory Inactive
+            </button>
+          </div>
+
+          <div *ngIf="isSearchingTelemetry()" class="text-center py-5">
+            <div class="spinner-border text-info mb-2" role="status">
+              <span class="visually-hidden">Buscando telemetria...</span>
             </div>
+            <p class="text-muted small mb-0">Consultando o servidor Ford...</p>
+          </div>
 
-         
-            <div *ngIf="isSearchingTelemetry()" class="text-center py-5">
-              <div class="spinner-border text-info mb-2" role="status">
-                <span class="visually-hidden">Buscando telemetria...</span>
-              </div>
-              <p class="text-muted small mb-0">Consultando o servidor Ford...</p>
-            </div>
+          <div *ngIf="telemetryError() && !isSearchingTelemetry()" class="alert alert-warning border border-warning-subtle py-3 px-4 mb-0 rounded-3 animate-fade-in" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
+            <strong>Atenção:</strong> {{ telemetryError() }}
+          </div>
 
-            <!-- Telemetry Error State -->
-            <div *ngIf="telemetryError() && !isSearchingTelemetry()" class="alert alert-warning border border-warning-subtle py-3 px-4 mb-0 rounded-3 animate-fade-in" role="alert">
-              <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
-              <strong>Atenção:</strong> {{ telemetryError() }}
-            </div>
+          <div *ngIf="!isSearchingTelemetry() && !telemetryError()" class="ford-table-container animate-fade-in">
+            <table class="ford-table">
+              <thead>
+                <tr>
+                  <th>Código-Vin</th>
+                  <th>Odômetro</th>
+                  <th>Nível de Combustível</th>
+                  <th>Status</th>
+                  <th>Lat.</th>
+                  <th>Long.</th>
+                </tr>
+              </thead>
+              <tbody>
 
-            <!-- Telemetry Data Table -->
-            <div *ngIf="!isSearchingTelemetry() && !telemetryError()" class="ford-table-container animate-fade-in">
-              <table class="ford-table">
-                <thead>
-                  <tr>
-                    <th>Código-Vin</th>
-                    <th>Odômetro</th>
-                    <th>Nível de Combustível</th>
-                    <th>Status</th>
-                    <th>Lat.</th>
-                    <th>Long.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                
-                  <tr *ngIf="telemetryResult() as data">
-                    <td class="font-monospace text-info fw-bold">{{ searchVinQuery }}</td>
-                    <td class="fw-bold">{{ formatNumber(data.odometro) }} Km</td>
-                    <td style="min-width: 180px;">
-                      <div class="d-flex align-items-center gap-2">
-                        <div class="progress flex-grow-1 bg-dark-subtle" style="height: 6px;">
-                          <div 
-                            class="progress-bar rounded" 
-                            role="progressbar" 
-                            [style.width.%]="data.nivelCombustivel"
-                            [ngClass]="{
-                              'bg-danger': data.nivelCombustivel <= 20,
-                              'bg-warning': data.nivelCombustivel > 20 && data.nivelCombustivel <= 50,
-                              'bg-success': data.nivelCombustivel > 50
-                            }">
-                          </div>
+                <tr *ngIf="telemetryResult() as data">
+                  <td class="font-monospace text-info fw-bold">{{ searchVinQuery }}</td>
+                  <td class="fw-bold">{{ formatNumber(data.odometro) }} Km</td>
+                  <td style="min-width: 180px;">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="progress flex-grow-1 bg-dark-subtle" style="height: 6px;">
+                        <div
+                          class="progress-bar rounded"
+                          role="progressbar"
+                          [style.width.%]="data.nivelCombustivel"
+                          [ngClass]="{
+                            'bg-danger': data.nivelCombustivel <= 20,
+                            'bg-warning': data.nivelCombustivel > 20 && data.nivelCombustivel <= 50,
+                            'bg-success': data.nivelCombustivel > 50
+                          }">
                         </div>
-                        <span class="small fw-bold">{{ data.nivelCombustivel }}%</span>
                       </div>
-                    </td>
-                    <td>
-                      <span class="badge-status" [ngClass]="data.status === 'on' ? 'badge-status-on' : 'badge-status-off'">
-                        <span class="status-dot"></span>
-                        {{ data.status === 'on' ? 'Ligado' : 'Desligado' }}
-                      </span>
-                    </td>
-                    <td class="text-muted font-monospace">{{ data.lat }}</td>
-                    <td class="text-muted font-monospace">{{ data.long }}</td>
-                  </tr>
+                      <span class="small fw-bold">{{ data.nivelCombustivel }}%</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="badge-status" [ngClass]="data.status === 'on' ? 'badge-status-on' : 'badge-status-off'">
+                      <span class="status-dot"></span>
+                      {{ data.status === 'on' ? 'Ligado' : 'Desligado' }}
+                    </span>
+                  </td>
+                  <td class="text-muted font-monospace">{{ data.lat }}</td>
+                  <td class="text-muted font-monospace">{{ data.long }}</td>
+                </tr>
 
-                 
-                  <tr *ngIf="!telemetryResult()">
-                    <td colspan="6" class="text-center py-5 text-muted">
-                      <i class="bi bi-search-heart display-6 mb-3 d-block text-secondary"></i>
-                      <span>Aguardando a busca... Digite um código VIN acima ou clique nos exemplos para buscar.</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
+                <tr *ngIf="!telemetryResult()">
+                  <td colspan="6" class="text-center py-5 text-muted">
+                    <i class="bi bi-search-heart display-6 mb-3 d-block text-secondary"></i>
+                    <span>Aguardando a busca... Digite um código VIN acima ou clique nos exemplos para buscar.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+
         </div>
       </div>
+    </div>
 
   </main>
 </div>
