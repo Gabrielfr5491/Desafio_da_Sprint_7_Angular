@@ -1,9 +1,12 @@
 .home-bg {
-  background: linear-gradient(135deg, rgba(var(--bg-overlay-start), 0.92) 0%, rgba(var(--bg-overlay-end), 0.85) 100%), 
-              url('/img/ranger.png') no-repeat center center;
+  background-color: rgba(15, 23, 42, 0.85); 
+  background-image: url('/img/ranger.png'); 
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
+  background-blend-mode: multiply; 
   flex-grow: 1;
-  transition: background-color 0.25s ease;
+  min-height: 500px; 
 }
 
 .welcome-card-box {
@@ -72,6 +75,24 @@
   padding: 0.5rem;
 }
 
+.mobile-navbar {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030; 
+}
+
+
+.sidebar {
+  z-index: 1040; 
+}
+
+
+.main-content {
+  position: relative;
+  z-index: 1; 
+}
 @media (max-width: 991.98px) {
   .welcome-card-box {
     padding: 3rem 1.5rem !important;
